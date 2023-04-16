@@ -1,5 +1,12 @@
 import { User } from './src/User';
 import { Company } from './src/Company';
+
+interface MapInfor {
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
 export class MapApp {
   private googleMap;
   constructor(id: string) {
@@ -10,22 +17,23 @@ export class MapApp {
       {
         //35.6684103, lng: 139.5760575 TOkyo
         center: { lat: 35.6684103, lng: 139.5760575 },
-        zoom: 10,
+        zoom: 5,
       }
     );
   }
 
-  addUserMaker(user: User): void {
+  addMaker(maker: MapInfor): void {
     new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: user.location.lat,
-        lng: user.location.long,
+        lat: maker.location.lat,
+        lng: maker.location.lng,
       },
     });
-  }
-  addCompanyMaker(company: Company): void {
-    new google.maps.Marker({});
+    this.googleMap.setCenter({
+      lat: maker.location.lat,
+      lng: maker.location.lng,
+    });
   }
 }
 
