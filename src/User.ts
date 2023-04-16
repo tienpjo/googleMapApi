@@ -12,4 +12,9 @@ export class User {
       lng: Number(faker.address.longitude()),
     };
   }
+  displayContent(): string {
+    return `
+    <div><h3>User:${this.name}</h3></div>
+    `;
+  }
 }

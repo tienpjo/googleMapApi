@@ -14,4 +14,12 @@ export class Company {
       lng: Number(faker.address.longitude()),
     };
   }
+  displayContent(): string {
+    return `
+    <div>
+      <h3>Company Name: ${this.companyName}</h3>
+      <h4>catchPhrase: ${this.catchPhrase}</h4>
+    </div>
+    `;
+  }
 }

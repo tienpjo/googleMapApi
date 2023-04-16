@@ -1,6 +1,12 @@
 import { User } from './src/User';
 import { Company } from './src/Company';
-type MapInfor = User & Company;
+interface MapInfor {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  displayContent(): string;
+}
 export class MapApp {
   private googleMap;
   constructor(id: string) {
@@ -17,6 +23,7 @@ export class MapApp {
   }
 
   addMaker(maker: MapInfor): void {
+    console.log(maker);
     const makerMap = new google.maps.Marker({
       map: this.googleMap,
       position: {
@@ -24,16 +31,13 @@ export class MapApp {
         lng: maker.location.lng,
       },
     });
-    this.googleMap.setCenter({
-      lat: maker.location.lat,
-      lng: maker.location.lng,
-    });
+    // this.googleMap.setCenter({
+    //   lat: maker.location.lat,
+    //   lng: maker.location.lng,
+    // });
     makerMap.addListener('click', () => {
       const info = new google.maps.InfoWindow({
-        content: maker.name
-          ? maker.name
-          : `${maker.companyName}
-             ${maker.catchPhrase}`,
+        content: maker.displayContent(),
       });
       info.open(this.googleMap, makerMap);
     });
